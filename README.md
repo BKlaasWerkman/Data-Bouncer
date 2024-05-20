@@ -14,7 +14,7 @@ This script reads your chosen domain names from domains.txt, first encrypts your
 
 Example:
 ```
-go run bounce.go -f <filename.txt> -p <password> -u <UUID> -e <interact server url> -v
+go run bounce.go -f <filename> -p <password> -u <UUID> -e <interact server url> -v
 ```
 
 ### Regenerate.go
@@ -22,7 +22,7 @@ This script reads the JSON output from your interactsh server, processes and rea
 
 Example:
 ```
-go run regenerate.go -i <exported.json> -o <outputfile.txt> -p <password> -u <UUID> -v
+go run regenerate.go -i <exported.json> -o <outputfile> -p <password> -u <UUID> -v
 ```
 
 ### Images
