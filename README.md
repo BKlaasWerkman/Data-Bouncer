@@ -47,4 +47,4 @@ Example of the forward traffic from FortiGate:
 - However, when the HTTP request is made, the webserver looks at our modified HTTP headers and does a dns lookup of our exfil server in those headers.
 - Then we're able to collect each of those dns lookups back to our exfil server and reconstruct the data from those headers.
 - This only works because many webservers processes hostnames in the headers, and we can relay small chunks of data in those headers for collection.
-- Therefore, this is an extremely stealthy way of exfiltrating data.
+- Therefore, this makes it an extremely stealthy way of exfiltrating data.
