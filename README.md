@@ -25,7 +25,17 @@ Example:
 go run regenerate.go -i <exported.json> -o <outputfile.txt> -p <password> -u <UUID> -v
 ```
 
-### Image
+### Images
 Example of forward traffic from a FortiGate 
 
-![FortiGate1](https://github.com/BKlaasWerkman/Data-Bouncer/assets/105836264/cbdff616-295b-4d47-a566-dd07c285f617)
+![FortiGate1](https://github.com/BKlaasWerkman/Data-Bouncer/assets/105836264/e4f26c0b-53ec-45db-a438-6fc340b87d1d)
+
+
+Example of bounced file
+
+![bounce](https://github.com/BKlaasWerkman/Data-Bouncer/assets/105836264/3ddfe42e-97f5-4693-b44b-8ecc544a8f0c)
+
+
+Example of regenerated file
+
+![regen](https://github.com/BKlaasWerkman/Data-Bouncer/assets/105836264/6a2ac6d1-7d40-455b-b1ae-a83143078076)
