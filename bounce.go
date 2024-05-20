@@ -240,6 +240,8 @@ func sendFileChunks() {
 func cleanDomainList(domains []string) []string {
   var cleaned []string
   for _, domain := range domains {
+    domain = strings.TrimSpace(domain)
+    domain = strings.ReplaceAll(domain, "\r", "")
     if domain != "" && strings.Contains(domain, ".") {
       cleaned = append(cleaned, domain)
     }
