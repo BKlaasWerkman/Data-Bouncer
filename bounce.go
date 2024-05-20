@@ -7,7 +7,7 @@ import (
   "flag"
   "fmt"
   "crypto/tls"
-  "net/http/httputil"
+//  "net/http/httputil"
   "log"
   "io/ioutil"
   "math/big"
@@ -128,13 +128,13 @@ func sendChunkedRequest(data []byte, domain, prefix, exfil, fileID string, chunk
   req.Host = modifiedData
 
 
-
-reqDump, err := httputil.DumpRequestOut(req, true)
-if err != nil {
-    fmt.Printf("Error dumping request:", err)
-} else {
-    fmt.Printf(string(reqDump))
-}
+// Debugging
+//reqDump, err := httputil.DumpRequestOut(req, true)
+//if err != nil {
+//    fmt.Printf("Error dumping request:", err)
+//} else {
+//    fmt.Printf(string(reqDump))
+//}
   //req.Host = domain
 
  // Printing all_headers to verify
