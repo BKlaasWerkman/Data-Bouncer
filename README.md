@@ -1,7 +1,7 @@
 # Data-Bouncer
 
 I came across this Proof of Concept outlined here in https://thecontractor.io/data-bouncing.
-I took their ideas and wrote two Go scripts that can be used for educational purposes. Please don't do anything illegal with this.
+I took their ideas and wrote two Go scripts that can be used for educational purposes. Please don't do anything illegal.
 
 One script that encrypts and bounces the data you want to exfiltrate and the other that reassembles and decrypts it.
 
