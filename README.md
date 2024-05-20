@@ -24,3 +24,7 @@ Example:
 ```
 go run regenerate.go -i <exported.json> -o <outputfile.txt> -p <password> -u <UUID> -v
 ```
+
+### Image
+Forward traffic from a FortiGate 
+![FortiGate1](https://github.com/BKlaasWerkman/Data-Bouncer/assets/105836264/7b2a35c1-2d3b-4974-aa8c-7354921c78ca)
