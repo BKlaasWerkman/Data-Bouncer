@@ -31,7 +31,7 @@ Example of bouncing a file:
 
 ![bouncer](https://github.com/BKlaasWerkman/Data-Bouncer/assets/105836264/87499151-3fef-4acc-b1d8-f67591ae21b9)
 
-Example of regenerating a file:
+Example of regenerating the file:
 
 ![regen](https://github.com/BKlaasWerkman/Data-Bouncer/assets/105836264/6a2ac6d1-7d40-455b-b1ae-a83143078076)
 
