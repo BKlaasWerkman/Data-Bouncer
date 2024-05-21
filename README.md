@@ -44,7 +44,7 @@ Example of the forward traffic from FortiGate:
 ![FortiGate1](https://github.com/BKlaasWerkman/Data-Bouncer/assets/105836264/e4f26c0b-53ec-45db-a438-6fc340b87d1d)
 
 - As you can see, it looks like the traffic is going to 23.x.x.x, a highly trusted domain.
-- However, when the HTTP request is made, the webserver looks at our modified HTTP headers and does a dns lookup of our exfil server in those headers.
+- However, when the HTTP request is made, the webserver looks at our modified HTTP headers and does a dns lookup of our exfil server from those headers.
 - Then we're able to collect each of those dns lookups back to our exfil server and reconstruct the data from those headers.
 - This only works because many webservers processes hostnames in the headers, and we can relay small chunks of data in those headers for collection.
 - Therefore, this makes it an extremely stealthy way of exfiltrating data.
