@@ -15,7 +15,6 @@ import (
 	"golang.org/x/crypto/chacha20poly1305"
 )
 
-// Command-line variables
 var (
   inputFile   string
   outputFile  string
@@ -45,9 +44,9 @@ type ChunkData struct {
 }
 
 func init() {
-	flag.StringVar(&inputFile, "i", "", "Input JSON file of encrypted data exported from InteractSh web server")
-	flag.StringVar(&outputFile, "o", "output.txt", "Output file for decrypted data")
-	flag.StringVar(&password, "p", "", "Password of encrypted data")
+	flag.StringVar(&inputFile, "i", "", "Input JSON file exported from InteractSh client")
+	flag.StringVar(&outputFile, "o", "output.txt", "Output file of decrypted data")
+	flag.StringVar(&password, "p", "", "Password for encrypted data")
   flag.StringVar(&uuidKey, "u", "", "Expected UUID to verify correct data")
   flag.BoolVar(&verbose, "v", false, "Enable verbose output")
 	flag.Parse()
@@ -77,7 +76,6 @@ func readInputFile(filename string) ([]DataChunk, error) {
 	return appDetails.Data, nil
 }
 
-
 // ProcessDataChunks handles the reassembly and decryption of ProcessDataChunks
 func processDataChunks(chunks []DataChunk) ([]byte, error) {
   chunkData := make(map[string]*ChunkData)
@@ -106,7 +104,7 @@ func processDataChunks(chunks []DataChunk) ([]byte, error) {
 			    continue
 		  }
    
-       // Caps Base32 encoded data
+    // Caps Base32 encoded string
     encodedData = strings.ToUpper(encodedData)
 
     // Log the raw encoded data for each chunk
@@ -119,26 +117,18 @@ func processDataChunks(chunks []DataChunk) ([]byte, error) {
       log.Printf("Invalid characters in Base32 encoded data in chunk %d: %s", posInt, encodedData)
       continue
     }
-     
-
-    
-	//	if _, err := base32.StdEncoding.DecodeString(encodedDataPadded); err != nil {
-	//		log.Printf("Invalid Base32 encoded data in chunk %d: %v\n", posInt, err)
-	//		continue
-	//	}
-
+      
     // Allow the last chunk to be smaller than the predefined chunk size
-		  if posInt != totalInt-1 && len(encodedData) != chunkSize {
-			    log.Printf("Chunk size mismatch for chunk %d, expected %d bytes, got %d bytes\n", posInt, chunkSize, len(encodedData))
-			    continue
+		if posInt != totalInt-1 && len(encodedData) != chunkSize {
+			log.Printf("Chunk size mismatch for chunk %d, expected %d bytes, got %d bytes\n", posInt, chunkSize, len(encodedData))
+			continue
 
     }
-      if verbose {
+    if verbose {
         log.Printf("Processing chunk: %s, Position: %d, Total Chunks: %d\n", fullId, posInt, totalInt)
-      }
-
-      
-      //Ensure encodedData is a valid Base32 string before proceeding
+    }
+ 
+  //Ensure encodedData is a valid Base32 string before proceeding
    //   if _, err := base32.StdEncoding.DecodeString(encodedDataPadded); err != nil {
     //    log.Printf("Invalid Base32 encoded data in chunk %d: %v\n", posInt, err)
     //    continue
@@ -187,8 +177,6 @@ func processDataChunks(chunks []DataChunk) ([]byte, error) {
 			log.Printf("Missing chunks for %s: %d/%d received, missing chunks: %v\n", hex, len(data.ReceivedChunks), data.TotalChunks, missingChunks)
 		}
 	}
-
-
 	  return nil, fmt.Errorf("not all chunks received")
   }
 
@@ -254,28 +242,6 @@ func decryptData(encryptedData []byte, password string) ([]byte, error) {
 	return aead.Open(nil, nonce, ciphertext, nil)
 }
 
-//func decryptFromFile(filename, password string) ([]byte, error) {
-//  encodedData, err := ioutil.ReadFile(filename)
-//  if err != nil {
-//    return nil, err
-//  }
-
-//  data, err := base32.StdEncoding.DecodeString(string(encodedData))
-//  if err != nil {
-//    return nil, err
-//  }
-
-//  if len(data) < saltSize+nonceSize {
-//    return nil, fmt.Errorf("data too short to contain salt and nonce")
-//  }
-
-//  salt := data[:saltSize]
-//  nonce := data[saltSize : saltSize+nonceSize]
-//  encryptedData := data[saltSize+nonceSize:]
-
-//  key := deriveKey(password, salt)
-//  return decryptData(encryptedData, key, nonce)
-//}
 func isValidBase32(s string) bool {
   for _, c := range s {
     if !((c >= 'A' && c <= 'Z') || (c >= '2' && c <= '7')) {

@@ -1,4 +1,4 @@
-module DataBouncing
+module Data-Bouncer
 
 go 1.22.2
 
