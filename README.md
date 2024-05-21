@@ -1,7 +1,7 @@
 # Data-Bouncer
 
 I came across this Proof of Concept outlined here in https://thecontractor.io/data-bouncing.
-I took their ideas and wrote two Go scripts that can be used for educational purposes. Please don't do anything illegal.
+I took their ideas and wrote two Go scripts designed for educational purposes. Please don't do anything illegal.
 
 One script, bounce.go, encrypts and exfiltrates data via DNS by breaking it into chunks and sending it through HTTP headers. The second script, regenerate.go, reassembles and decrypts the data from the exfiltrated chunks. This method leverages trusted domains and HTTP headers to stealthily transmit data.
 
@@ -50,7 +50,7 @@ Example of the forward traffic from FortiGate:
 ![FortiGate1](https://github.com/BKlaasWerkman/Data-Bouncer/assets/105836264/e4f26c0b-53ec-45db-a438-6fc340b87d1d)
 
 - As you can see, it looks like the traffic is going to 23.x.x.x, a highly trusted domain.
-- However, when the HTTP request is made, the webserver looks at our modified HTTP headers and does a dns lookup of our exfil server from those headers.
+- However, when the HTTP request is made, the webserver looks at our modified HTTP headers and performs a dns lookup of our exfil server from those headers.
 - Then we're able to collect each of those dns lookups to our exfil server and reconstruct the data from these headers.
 - This only works because many webservers processes hostnames in the headers, and we can relay small chunks of data in those very same headers between endpoints.
 - Therefore, this makes it an extremely stealthy way of exfiltrating data albeit a slow one.
